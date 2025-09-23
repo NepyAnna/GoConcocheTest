@@ -84,9 +84,8 @@ class AuthServiceTest {
 
         RegisterResponse response = authService.register(registerRequest);
 
-        assertEquals(10L, response.id());
         assertEquals(userName, response.username());
-        assertTrue(response.roles().contains(userRole));
+        assertTrue(response.roles().contains(userRole.getRole()));
         verify(userRepository).save(any(RegisteredUser.class));
     }
 
@@ -117,7 +116,6 @@ class AuthServiceTest {
 
         AuthResponse authResponse = authService.authenticate(loginDto, response);
 
-        assertEquals(5L, authResponse.id());
         assertEquals(userName, authResponse.username());
         assertEquals("jwt-token", authResponse.token());
         verify(response).addCookie(any(Cookie.class));

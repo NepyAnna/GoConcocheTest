@@ -51,10 +51,10 @@ public class AuthService {
                 .password(passwordEncoder.encode(registerDto.password()))
                 .roles(roles)
                 .build();
-
         RegisteredUser savedUser = userRepository.save(user);
+        Set<String> roleNames = getRoleNames(savedUser);
 
-        return new RegisterResponse(savedUser.getId(), savedUser.getUsername(), savedUser.getRoles());
+        return new RegisterResponse(savedUser.getUsername(), roleNames);
     }
 
     public AuthResponse authenticate(AuthRequest loginDto, HttpServletResponse response) {
@@ -66,8 +66,9 @@ public class AuthService {
         String refreshToken = jwtService.generateRefreshToken(user.getUsername());
         Cookie refreshTokenCookie = getRefreshTokenCookie(refreshToken);
         response.addCookie(refreshTokenCookie);
+        Set<String> roleNames = getRoleNames(user);
 
-        return new AuthResponse(user.getId(), user.getUsername(), jwtToken, user.getRoles());
+        return new AuthResponse(user.getUsername(), jwtToken, roleNames);
     }
 
     public String refreshToken(HttpServletRequest request, HttpServletResponse response) {
@@ -104,5 +105,11 @@ public class AuthService {
         if (request.getCookies() == null) {
             throw new RuntimeException("No cookies present");
         }
+    }
+
+    private Set<String> getRoleNames(RegisteredUser user){
+        return user.getRoles().stream()
+                .map(Role::getRole)
+                .collect(Collectors.toSet());
     }
 }
