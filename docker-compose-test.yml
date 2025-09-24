@@ -1,67 +1,11 @@
 services:
   test:
     image: maven:3.9.11-eclipse-temurin-21
-
-    working_dir: /src
-
+    working_dir: /app
     volumes:
-      - .:/src
-
-    entrypoint: ["mvn", "clean", "test", "--no-transfer-progress", "-B"]
-
+      - .:/app
+    command: ["mvn", "clean", "test", "--no-transfer-progress", "-B"]
     container_name: go-con-coche-test
-
     environment:
       - SPRING_PROFILES_ACTIVE=test
-      - SHOW_SQL=false
-      - SERVER_PORT=8080
-      - DB_URL=jdbc:mysql://test-db:3306/test
-      - DB_USERNAME=usertest
-      - DB_PASSWORD=app123
-
     restart: no
-
-    depends_on:
-      test-db:
-        condition: service_healthy
-
-    networks:
-      - test-network
-
-  test-db:
-    image: mysql:8.0
-
-    container_name: go-con-coche-test-db
-
-    command: --lower_case_table_names=1
-
-    environment:
-      MYSQL_DATABASE: test
-      MYSQL_USER: usertest
-      MYSQL_PASSWORD: app123
-      MYSQL_ROOT_PASSWORD: root123
-
-    restart: no
-
-    healthcheck:
-      test: [
-        "CMD",
-        "mysqladmin",
-        "ping",
-        "-h",
-        "localhost",
-        "-u",
-        "usertest",
-        "-papp123",
-      ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
-    networks:
-      - test-network
-
-networks:
-  test-network:
-    driver: bridge
