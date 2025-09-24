@@ -3,7 +3,6 @@ package com.more_than_code.go_con_coche.cloudinary;
 import com.cloudinary.Cloudinary;
 import com.more_than_code.go_con_coche.config.CloudinaryProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
@@ -47,5 +46,17 @@ public class CloudinaryService {
             throw new IllegalArgumentException("No default image configured for type: " + type);
         }
         return new UploadResult(url, null);
+    }
+
+    public UploadResult resolveImage(MultipartFile image, DefaultImageType type) {
+        try {
+            if (image != null && !image.isEmpty()) {
+                return upload(image, "vehicles");
+            } else {
+                return uploadDefault(type);
+            }
+        } catch (Exception e) {
+            return uploadDefault(type);
+        }
     }
 }
