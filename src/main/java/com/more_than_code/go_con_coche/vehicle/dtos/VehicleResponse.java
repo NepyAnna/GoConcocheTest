@@ -20,6 +20,6 @@ public record VehicleResponse (
         FuelTypeCar fuelTypeCar,
         String fuelConsumption,
         String imageUrl,
-        OwnerProfileResponse owner
+        String username
 ){
 }

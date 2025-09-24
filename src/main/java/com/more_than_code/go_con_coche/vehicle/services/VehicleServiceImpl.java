@@ -46,7 +46,7 @@ public class VehicleServiceImpl implements VehicleService{
             throw new EntityAlreadyExistsException("Vehicle", "insurance number", vehicleRequest.insuranceNumber());
         }
 
-        OwnerProfile owner = ownerProfileRepository.findById(user.getId())
+        OwnerProfile owner = ownerProfileRepository.findByRegisteredUserId(user.getId())
                 .orElseThrow(() -> new EntityNotFoundException("OwnerProfile", "id", user.getId().toString()));
 
         Vehicle vehicle = vehicleMapper.toEntity(vehicleRequest);
@@ -70,7 +70,7 @@ public class VehicleServiceImpl implements VehicleService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<VehicleResponse> getVehicleByOwner(Long ownerId) {
+    public List<VehicleResponse> getVehicleByOwnerId(Long ownerId) {
         OwnerProfile owner = ownerProfileRepository.findById(ownerId)
                 .orElseThrow(() -> new EntityNotFoundException("OwnerProfile", "id", ownerId.toString()));
 
