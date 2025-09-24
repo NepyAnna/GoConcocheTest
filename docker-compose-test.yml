@@ -5,15 +5,11 @@ services:
     working_dir: /src
 
     volumes:
-      - type: bind
-        source: .
-        target: /src
-        read_only: true
+      - .:/src
 
+    entrypoint: ["mvn", "clean", "test", "--no-transfer-progress", "-B"]
 
-    entrypoint: ["mvn", "-Ptest", "clean", "verify", "--no-transfer-progress"]
-
-    container_name: test
+    container_name: go-con-coche-test
 
     environment:
       - SPRING_PROFILES_ACTIVE=test
@@ -29,23 +25,19 @@ services:
       test-db:
         condition: service_healthy
 
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+    networks:
+      - test-network
 
   test-db:
     image: mysql:8.0
 
-    container_name: db
+    container_name: go-con-coche-test-db
 
     command: --lower_case_table_names=1
 
     environment:
-      MYSQL_DATABASE: app
-      MYSQL_USER: userapp
+      MYSQL_DATABASE: test
+      MYSQL_USER: usertest
       MYSQL_PASSWORD: app123
       MYSQL_ROOT_PASSWORD: root123
 
@@ -59,10 +51,17 @@ services:
         "-h",
         "localhost",
         "-u",
-        "userapp",
+        "usertest",
         "-papp123",
       ]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s
+
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
