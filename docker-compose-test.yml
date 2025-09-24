@@ -1,11 +1,68 @@
 services:
   test:
     image: maven:3.9.11-eclipse-temurin-21
-    working_dir: /app
+
+    working_dir: /src
+
     volumes:
-      - .:/app
-    command: ["mvn", "clean", "test", "--no-transfer-progress", "-B"]
-    container_name: go-con-coche-test
+      - type: bind
+        source: .
+        target: /src
+        read_only: true
+
+
+    entrypoint: ["mvn", "-Ptest", "clean", "verify", "--no-transfer-progress"]
+
+    container_name: test
+
     environment:
       - SPRING_PROFILES_ACTIVE=test
+      - SHOW_SQL=false
+      - SERVER_PORT=8080
+      - DB_URL=jdbc:mysql://test-db:3306/test
+      - DB_USERNAME=usertest
+      - DB_PASSWORD=app123
+
     restart: no
+
+    depends_on:
+      test-db:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  test-db:
+    image: mysql:8.0
+
+    container_name: db
+
+    command: --lower_case_table_names=1
+
+    environment:
+      MYSQL_DATABASE: app
+      MYSQL_USER: userapp
+      MYSQL_PASSWORD: app123
+      MYSQL_ROOT_PASSWORD: root123
+
+    restart: no
+
+    healthcheck:
+      test: [
+        "CMD",
+        "mysqladmin",
+        "ping",
+        "-h",
+        "localhost",
+        "-u",
+        "userapp",
+        "-papp123",
+      ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

@@ -173,30 +173,21 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M8</version>
+				<configuration>
+					<useModulePath>false</useModulePath>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
 		<profile>
 			<id>test</id>
-			<properties>
-				<maven.test.skip>false</maven.test.skip>
-			</properties>
 			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<includes>
-								<include>**/*Test.java</include>
-								<include>**/*Tests.java</include>
-							</includes>
-							<systemPropertyVariables>
-								<spring.profiles.active>test</spring.profiles.active>
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
-				</plugins>
+				<directory>/tmp/build</directory>
 			</build>
 		</profile>
 	</profiles>
