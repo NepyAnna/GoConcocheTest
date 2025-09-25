@@ -76,6 +76,8 @@ public class SecurityConfig {
                                 .hasRole("OWNER")
                                 .requestMatchers(HttpMethod.DELETE, "/api/owner-profiles/**",  "/api/vehicles/**", "/api/vehicle_rental_offers/**")
                                 .hasRole("OWNER")
+                                .requestMatchers(HttpMethod.GET, "/api/vehicles/my")
+                                .hasRole("OWNER")
                                 .anyRequest()
                                 .authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

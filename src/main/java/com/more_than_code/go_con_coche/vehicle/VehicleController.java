@@ -35,4 +35,10 @@ public class VehicleController {
         List<VehicleResponse> vehicles = vehicleService.getVehicleByOwnerId(ownerId);
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
     }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<VehicleResponse>> getMyVehicles() {
+        List<VehicleResponse> vehicles = vehicleService.getMyVehicles();
+        return new ResponseEntity<>(vehicles, HttpStatus.OK);
+    }
 }

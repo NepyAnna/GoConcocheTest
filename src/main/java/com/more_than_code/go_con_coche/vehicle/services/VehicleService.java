@@ -10,4 +10,5 @@ public interface VehicleService {
     VehicleResponse createVehicle(VehicleRequest vehicleRequest);
     List<VehicleResponse> getAllVehicles();
     List<VehicleResponse> getVehicleByOwnerId(Long ownerId);
+    List<VehicleResponse> getMyVehicles();
 }

@@ -79,4 +79,19 @@ public class VehicleServiceImpl implements VehicleService{
                 .map(vehicleMapper::toResponse)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<VehicleResponse> getMyVehicles() {
+        RegisteredUser user = userAuthService.getAuthenticatedUser();
+
+        OwnerProfile owner = ownerProfileRepository.findByRegisteredUserId(user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("OwnerProfile", "user", user.getUsername()));
+
+        List<Vehicle> vehicles = vehicleRepository.findByOwner(owner);
+
+        return vehicles.stream()
+                .map(vehicleMapper::toResponse)
+                .collect(Collectors.toList());
+    }
 }
