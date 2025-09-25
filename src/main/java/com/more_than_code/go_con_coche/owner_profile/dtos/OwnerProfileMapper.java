@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 public class OwnerProfileMapper {
     public OwnerProfile toEntity (OwnerProfileRequest request){
         return OwnerProfile.builder()
-                .imageURL(request.imageUrl())
                 .build();
     }
 
