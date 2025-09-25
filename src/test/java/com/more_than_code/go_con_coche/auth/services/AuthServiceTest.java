@@ -4,6 +4,7 @@ import com.more_than_code.go_con_coche.auth.dtos.AuthRequest;
 import com.more_than_code.go_con_coche.auth.dtos.AuthResponse;
 import com.more_than_code.go_con_coche.auth.dtos.RegisterRequest;
 import com.more_than_code.go_con_coche.auth.dtos.RegisterResponse;
+import com.more_than_code.go_con_coche.auth.exceptions.RefreshTokenCookiesNotFoundException;
 import com.more_than_code.go_con_coche.registered_user.RegisteredUser;
 import com.more_than_code.go_con_coche.registered_user.RegisteredUserRepository;
 import com.more_than_code.go_con_coche.role.Role;
@@ -148,5 +149,14 @@ class AuthServiceTest {
         when(request.getCookies()).thenReturn(null);
 
         assertThrows(RuntimeException.class, () -> authService.refreshToken(request, response));
+    }
+
+    @Test
+    void refreshToken_WhenRefreshTokenCookieMissing() {
+        Cookie otherCookie = new Cookie("some_cookie", "value");
+        when(request.getCookies()).thenReturn(new Cookie[]{otherCookie});
+
+        assertThrows(RefreshTokenCookiesNotFoundException.class,
+                () -> authService.refreshToken(request, response));
     }
 }
