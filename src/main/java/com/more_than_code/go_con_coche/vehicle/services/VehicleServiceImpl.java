@@ -51,7 +51,7 @@ public class VehicleServiceImpl implements VehicleService{
 
         Vehicle vehicle = vehicleMapper.toEntity(vehicleRequest);
         vehicle.setOwner(owner);
-        UploadResult uploadResult = resolveVehicleImage(vehicleRequest.image());
+        UploadResult uploadResult = cloudinaryService.resolveImage(vehicleRequest.image(), DefaultImageType.CAR);
         vehicle.setImageUrl(uploadResult.url());
         vehicle.setPublicImageId(uploadResult.publicId());
 
@@ -78,17 +78,5 @@ public class VehicleServiceImpl implements VehicleService{
         return vehicles.stream()
                 .map(vehicleMapper::toResponse)
                 .collect(Collectors.toList());
-    }
-
-    private UploadResult resolveVehicleImage(MultipartFile image) {
-        try {
-            if (image != null && !image.isEmpty()) {
-                return  cloudinaryService.upload(image, "vehicles");
-            } else {
-                return cloudinaryService.uploadDefault(DefaultImageType.CAR);
-            }
-        } catch (Exception e) {
-            return cloudinaryService.uploadDefault(DefaultImageType.CAR);
-        }
     }
 }
