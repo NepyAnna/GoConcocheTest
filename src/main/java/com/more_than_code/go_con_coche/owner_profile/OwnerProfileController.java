@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping ("/api/owner-profiles")
@@ -19,7 +16,7 @@ public class OwnerProfileController {
     private final OwnerProfileService ownerProfileService;
 
     @PostMapping("")
-    public ResponseEntity<OwnerProfileResponse> createOwnerProfile(@Valid @RequestBody OwnerProfileRequest ownerProfileRequest){
+    public ResponseEntity<OwnerProfileResponse> createOwnerProfile(@Valid @ModelAttribute OwnerProfileRequest ownerProfileRequest){
         OwnerProfileResponse createdOwnerProfile = ownerProfileService.createOwnerProfile(ownerProfileRequest);
         return new ResponseEntity<>(createdOwnerProfile, HttpStatus.CREATED);
     }
