@@ -36,7 +36,7 @@ public class OwnerProfileServiceImpl implements OwnerProfileService {
         }
 
         UploadResult uploadResult = cloudinaryService.resolveImage(
-                ownerProfileRequest.imageUrl(), DefaultImageType.PROFILE
+                ownerProfileRequest.image(), DefaultImageType.PROFILE
         );
         ownerProfile.setImageURL(uploadResult.url());
         ownerProfile.setImageURL(uploadResult.publicId());
