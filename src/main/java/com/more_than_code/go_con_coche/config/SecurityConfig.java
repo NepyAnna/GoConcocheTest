@@ -70,7 +70,7 @@ public class SecurityConfig {
                                 .hasRole("RENTER")
                                 .requestMatchers(HttpMethod.DELETE, "/api/renter-profiles/**","/api/vehicle-reservations/**")
                                 .hasRole("RENTER")
-                                .requestMatchers(HttpMethod.POST, "/api/owner-profiles", "/api/vehicles", "/api/vehicle_rental_offers")
+                                .requestMatchers(HttpMethod.POST, "/api/owner-profiles/**", "/api/vehicles", "/api/vehicle_rental_offers")
                                 .hasRole("OWNER")
                                 .requestMatchers(HttpMethod.PUT, "/api/owner-profiles/**",  "/api/vehicles/**", "/api/vehicle_rental_offers/**")
                                 .hasRole("OWNER")
