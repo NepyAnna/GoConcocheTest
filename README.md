@@ -158,4 +158,4 @@ Anna Nepyivoda
             <source srcset="https://img.icons8.com/ios-glyphs/30/000000/github.png" media="(prefers-color-scheme: light)">
             <img src="https://img.icons8.com/ios-glyphs/30/000000/github.png" alt="GitHub icon"/>
         </picture>
-    </a>
+    </a># Test trigger
