@@ -11,6 +11,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        hbm2ddl:
+          auto: create-drop
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
   h2:
     console:
       enabled: true

@@ -11,13 +11,13 @@ INSERT INTO roles (id, role) VALUES (2, 'RENTER');
 INSERT INTO roles (id, role) VALUES (3, 'OWNER');
 
 -- registered_users
-INSERT INTO registered_users (id, first_name, last_name, date_of_birth, phone_number, username, email, password) 
+INSERT INTO registered_users (id, firstname, lastname, dateofbirth, phonenumber, username, email, password) 
 VALUES (1, 'Adam', 'Han', '1999-09-09', '+34111111111', 'admin', 'admin@gmail.com', '$2a$10$OQOEjXFqmFTpX2WtgWqi..myO2nS1BMC0jaFm52ydH3gR.XbWLQVe');
 
-INSERT INTO registered_users (id, first_name, last_name, date_of_birth, phone_number, username, email, password) 
+INSERT INTO registered_users (id, firstname, lastname, dateofbirth, phonenumber, username, email, password) 
 VALUES (2, 'Ren', 'Raw', '1989-09-09', '+34111111112', 'renter', 'renter@gmail.com', '$2a$10$OQOEjXFqmFTpX2WtgWqi..myO2nS1BMC0jaFm52ydH3gR.XbWLQVe');
 
-INSERT INTO registered_users (id, first_name, last_name, date_of_birth, phone_number, username, email, password) 
+INSERT INTO registered_users (id, firstname, lastname, dateofbirth, phonenumber, username, email, password) 
 VALUES (3, 'Owen', 'Tak', '1979-09-09', '+34111111113', 'owner', 'owner@gmail.com', '$2a$10$OQOEjXFqmFTpX2WtgWqi..myO2nS1BMC0jaFm52ydH3gR.XbWLQVe');
 
 -- user_role
@@ -37,4 +37,4 @@ VALUES (2, 'B', 'LIC123456', '2026-12-31', 'https://somexample.com/images/anna.j
 INSERT INTO locations (city, district) VALUES ('Valencia', 'El Carmen');
 
 --vehicles
-INSERT INTO vehicles (vin, plate_number, insurance_number, model, brand, year, color, seater, child_seats_number, fuel_type_car, fuel_consumption, image_url, owner_id) VALUES ('WVWZZZ1JZXW000001','AA1234BB', 'INS-987654321', 'Golf', 'Volkswagen', 2020, 'Black', 'SEDAN', 1,'PETROL', '7.5L/100km','https://someexample.com/images/car.jpg', 1);
+INSERT INTO vehicles (vin, plate_number, insurance_number, model, brand, year, color, seater, childseatsnumber, fueltypecar, fuelconsumption, imageurl, owner_id) VALUES ('WVWZZZ1JZXW000001','AA1234BB', 'INS-987654321', 'Golf', 'Volkswagen', 2020, 'Black', 'SEDAN', 1,'PETROL', '7.5L/100km','https://someexample.com/images/car.jpg', 1);
