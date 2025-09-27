@@ -6,17 +6,14 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-        hbm2ddl:
-          auto: create-drop
   sql:
     init:
-      mode: always
-      continue-on-error: false
+      mode: never
   h2:
     console:
       enabled: true
