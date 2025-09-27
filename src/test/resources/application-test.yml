@@ -37,7 +37,7 @@ spring:
     default-images:
       PROFILE: /images/default-profile.jpg
       CAR: /images/default-car.jpg
-  
+
   jwt:
     rsa-public-key: ${RSA_PUBLIC_KEY}
     rsa-private-key: ${RSA_PRIVATE_KEY}
