@@ -4,11 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.more_than_code.go_con_coche.auth.dtos.AuthRequest;
 import com.more_than_code.go_con_coche.auth.dtos.RegisterRequest;
 import com.more_than_code.go_con_coche.auth.services.JwtService;
+import com.more_than_code.go_con_coche.registered_user.RegisteredUserRepository;
+import com.more_than_code.go_con_coche.role.RoleRepository;
 import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
@@ -30,6 +33,12 @@ class AuthControllerTest {
 
     @Autowired
     private JwtService jwtService;
+
+    @MockBean
+    private RegisteredUserRepository userRepository;
+
+    @MockBean
+    private RoleRepository roleRepository;
 
     @Test
     void registerUser_ShouldReturn201() throws Exception {
