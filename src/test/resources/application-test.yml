@@ -29,6 +29,15 @@ spring:
   h2:
     console:
       enabled: true
+
+  cloudinary:
+    cloud-name: ${CLOUDINARY_CLOUD_NAME}
+    api-key: ${CLOUDINARY_API_KEY}
+    api-secret: ${CLOUDINARY_API_SECRET}
+    default-images:
+      PROFILE: /images/default-profile.jpg
+      CAR: /images/default-car.jpg
+  
   jwt:
     rsa-public-key: ${RSA_PUBLIC_KEY}
     rsa-private-key: ${RSA_PRIVATE_KEY}
